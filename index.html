@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Life Cycle</title>
+    <style>
+        p{
+            font-size: large;
+        }
+    </style>
+</head>
+<body>
+    <h1>Explain Life cycle in Class Component and functional component with Hook</h1>
+    <br>
+    <p>
+        In React, components can be either class-based or function-based (functional components). Both types of components have their own ways of managing their lifecycle and side effects. Here’s a detailed explanation of the lifecycle for class components and functional components with hooks. <br>
+        <h2>Class Components Lifecycle:-</h2> <br>
+        Class components in React have several lifecycle methods that are invoked at specific points during the component's life. These methods can be categorized into four phases: <br>
+        (1)Initialization:- <br>
+        (2)Mounting:- <br>
+        (3)Updating:- <br>
+        (4)Unmounting:- <br>
+        <h3>(1) Initialization:-</h3> <br>
+        =>>This phase occurs when an instance of the component is created. The constructor is typically used here: <br>
+        =>>constructor(props): Initializes the component's state and binds methods. <br>
+        class MyComponent extends React.Component { <br>
+            constructor(props) { <br>
+              super(props); <br>
+              this.state = { <br>
+                count: 0 <br>
+              }; <br>
+            } <br>
+          } <br><br>
+         
+        <h3>(2) Mounting:-</h3> <br>
+        =>>Methods in this phase are called when the component is being inserted into the DOM: <br>
+        <b>componentWillMount():-</b> <br>
+        =>>Executed just before rendering<br>
+        <b>render():-</b> <br>
+        =>>Required method; returns JSX to render <br>
+        <b>componentDidMount():-</b> <br>
+        =>>Executed after the component is rendered into the DOM; used for side effects like data fetching. <br>
+        class MyComponent extends React.Component { <br>
+            componentDidMount() { <br>
+              // Component did mount logic here <br>
+            } <br>
+          
+            render() { <br>
+              return <div>Hello, world!</div>; <br>
+            } <br>
+          } <br><br>
+
+        <h3>(3) Updating:-</h3> <br>
+        =>>Methods in this phase are called when the component is being re-rendered due to changes in props or state: <br>
+        <b>componentWillReceiveProps(nextProps):-</b> <br>
+        =>>Called when the component receives new props <br>
+        <b>shouldComponentUpdate(nextProps, nextState):-</b> <br>
+        =>>Determines if the component should re-render; returns a boolean. <br>
+        <b>componentWillUpdate(nextProps, nextState):-</b> <br>
+        =>>Called before re-rendering <br>
+        <b>render():-</b> <br>
+        =>>Required method; re-renders the component. <br>
+        <b>componentDidUpdate(prevProps, prevState):-</b> <br>
+        =>>Called after the component re-renders. <br>
+        class MyComponent extends React.Component { <br>
+            shouldComponentUpdate(nextProps, nextState) { <br>
+              // Decide if component should update <br>
+              return true; <br>
+            } <br>
+          
+            componentDidUpdate(prevProps, prevState) { <br>
+              // Component did update logic here <br>
+            } <br>
+          
+            render() { <br>
+              return <div>{this.state.count}</div>; <br>
+            } <br>
+          } <br>
+        
+        <h3>(4) Unmounting:-</h3> <br>
+        =>>Methods in this phase are called when the component is being removed from the DOM: <br>
+        <b>componentWillUnmount():-</b> <br>
+        =>>Executed just before the component is unmounted; used for cleanup (e.g., removing event listeners). <br>
+        class MyComponent extends React.Component { <br>
+            componentWillUnmount() { <br>
+              // Cleanup logic here <br>
+            } <br>
+          
+            render() { <br>
+              return <div>Goodbye, world!</div>; <br>
+            } <br>
+          } <br> <br> <br>
+
+        <h2>Functional Components with Hooks:-</h2> <br>
+        =>>Functional components became more powerful with the introduction of hooks in React 16.8. Hooks allow functional components to manage state and side effects, offering a way to use lifecycle-like methods. <br>
+        =>>The main hooks related to lifecycle management are: <br>
+        (1)useState:- <br>
+        (2)useEffect:- <br>
+        <h3>Initialization and State Management:-</h3> <br>
+        <b>(1) useState:-</b> <br>
+        =>> Manages state in a functional component. <br>
+        import React, { useState } from 'react'; <br>
+
+        function MyComponent() { <br>
+        const [count, setCount] = useState(0); <br>
+
+        return <div>{count}</div>; <br>
+    } <br><br>
+    
+    <b>(2) Mounting and Side Effects:-</b> <br>
+    =>>useEffect: Equivalent to componentDidMount, componentDidUpdate, and componentWillUnmount in class components. Runs after the component renders. <br>
+    import React, { useEffect } from 'react'; <br>
+
+    function MyComponent() { <br>
+    useEffect(() => { <br>
+    // Component did mount logic here <br>
+    console.log('Component mounted'); <br>
+
+    return () => { <br>
+      // Component will unmount logic here <br>
+      console.log('Component will unmount'); <br>
+    }; <br>
+  }, []); <br>
+
+  return <div>Hello, world!</div>; <br>
+} <br> <br>
+
+    <b>Dependency Array:-</b> <br>
+    =>>The second argument of useEffect determines when the effect should run. An empty array means the effect runs once (on mount and unmount). Omitting the array means it runs after every render. <br>
+    import React, { useState, useEffect } from 'react'; <br>
+
+    function MyComponent() { <br>
+    const [count, setCount] = useState(0); <br>
+
+    useEffect(() => { <br>
+    console.log('Component did update'); <br>
+  }, [count]); // Runs only when 'count' changes <br>
+
+  return ( <br>
+    <div> <br>
+      <p>{count}</p> <br>
+      <pre><button onClick={() => setCount(count + 1)}>Increment</button></pre> <br>
+    </div> <br>
+ <br>
+ 
+</p>
+</body>
+</html>
